@@ -1,21 +1,27 @@
-import tkinter as tk
+import tkinter
+from tkinter import ttk
+import sv_ttk
 
 from brawlhalla_overlay.api_calls import fetch_glory_stats
 
 def create_overlay():
-    root = tk.Tk()
+    root = tkinter.Tk()
+
     root.geometry("300x150+10+50")
     root.attributes('-alpha', 0.8)  # Transparency
     # root.overrideredirect(True)  # Frameless
     root.attributes('-topmost', True)  # Always on top
 
-    label = tk.Label(root, text="Loading Stats...", font=("Helvetica", 14), fg="white", bg="black")
+    label = ttk.Label(root, text="Loading Stats...")
     label.pack(pady=20)
 
-    player_id = "3145331"
     # Fetch stats and update label
-    player_stats = fetch_glory_stats(player_id)
-    label.config(text=player_stats['data']['name'])
+    id = "3145331"
+    player_stats = fetch_glory_stats(id)
+    label.config(text=player_stats["data"]["name"])
+
+    # This is where the magic happens
+    sv_ttk.set_theme("dark")
 
     root.mainloop()
 
